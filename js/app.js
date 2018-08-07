@@ -3,22 +3,20 @@ var Enemy = function() {
     this.randomStartingPoint = function() {
         var rand = (Math.floor(Math.random() * Math.floor(3)));
         const yVal = {
-            0: 65,
-            1: 150,
-            2: 225
+            0: 71,
+            1: 154,
+            2: 237
         };
         return yVal[rand];
     };
+    //Starts off-screen, random speed, and can start in any of the 3 designated roads.
     this.x = -75;
     this.y = this.randomStartingPoint();
     this.speed = this.randomSpeed();
-    // Variables applied to each of our instances go here,
-    // we've provided one for you to get started
-
-    // The image/sprite for our enemies, this uses
-    // a helper we've provided to easily load images
+    // The image/sprite for enemies
     this.sprite = 'images/enemy-bug.png';
 };
+//Enemy random speed function
 Enemy.prototype.randomSpeed = function() {
     var rand = (Math.floor(Math.random() * Math.floor(3)));
     const speed = {
@@ -36,20 +34,17 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x+=(dt*this.speed);
 };
-
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
-
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-
 function Player() {
     this.sprite = 'images/char-princess-girl.png';
-    this.x = 300;
-    this.y = 320;
+    this.x = 199;
+    this.y = 403;
     this.handleInput =  function(param) {
         var y = this.y;
         var x = this.x;
@@ -79,18 +74,17 @@ function Player() {
         //console.log('Player.update error fixing');
     }
 }
-
+//Render
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
     //console.log('Render, dammit!');
 };
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 var allEnemies = [(new Enemy()),new Enemy()];
 var player = new Player();
-
+//Makes bugs keep coming
 this.buggyRecursion = function(){
     this.newEnemySpawns = new Promise(function () {
         window.setTimeout(function spawnOfLadybugSatan() {
@@ -100,11 +94,8 @@ this.buggyRecursion = function(){
         }, Math.random() * 2500);
     });
 }
+//Calls buggyRecursion function in order to create a constant flow of enemies
 this.buggyRecursion();
-//this.newEnemySpawns.then(function(){
-    
-//});
-
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
 document.addEventListener('keyup', function(e) {
@@ -114,6 +105,11 @@ document.addEventListener('keyup', function(e) {
         39: 'right',
         40: 'down'
     };
-
     player.handleInput(allowedKeys[e.keyCode]);
 });
+
+if ((Enemy.y === Player.y) && (Enemy.x === Player.x)) {
+    setTimeout(function(){ 
+        console.log('bang');
+    }, 5500);
+};
