@@ -29,6 +29,14 @@ Enemy.prototype.randomSpeed = function() {
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
+    //if (sqrt((this.x-player.x)^2 + (this.y-player.y)^2)) {
+    if ((this.y != undefined) && (player.y != undefined ) && (this.x != undefined) && (player.x != undefined )&& (this.y == player.y) && Math.abs(this.x - player.x) < 25) {
+        console.log(this.x + ', ' + player.x);
+        console.log('bang');
+        player.x = 199;
+        player.y = 403;
+        return;
+    };
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
@@ -108,8 +116,7 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
-if ((Enemy.y === Player.y) && (Enemy.x === Player.x)) {
-    setTimeout(function(){ 
-        console.log('bang');
-    }, 5500);
+
+if (player.y <= 0) {
+    console.log("winner winner, chicken dinner!");
 };
