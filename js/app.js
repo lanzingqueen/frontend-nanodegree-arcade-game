@@ -77,6 +77,10 @@ function Player() {
             this.x = x;
         }
         console.log(x,y);
+        if (player.y <= 0) {
+            console.log("winner winner, chicken dinner!");
+            modal.style.display = "block";
+        };
     }
     this.update = function() {
         //console.log('Player.update error fixing');
@@ -116,7 +120,29 @@ document.addEventListener('keyup', function(e) {
     player.handleInput(allowedKeys[e.keyCode]);
 });
 
+// Get the modal
+var modal = document.getElementById('myModal');
 
-if (player.y <= 0) {
-    console.log("winner winner, chicken dinner!");
-};
+//Game Won modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
+replay.onclick = function(event) {
+    modal.style.display = "none";
+    reset();
+}
+
+var reset = function() {
+    player.x = 199;
+    player.y = 403;
+}
