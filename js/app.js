@@ -30,7 +30,7 @@ Enemy.prototype.randomSpeed = function() {
 // Parameter: dt, a time delta between ticks
 Enemy.prototype.update = function(dt) {
     //if (sqrt((this.x-player.x)^2 + (this.y-player.y)^2)) {
-    if ((this.y != undefined) && (player.y != undefined ) && (this.x != undefined) && (player.x != undefined )&& (this.y == player.y) && Math.abs(this.x - player.x) < 25) {
+    if ((this.y != undefined) && (player.y != undefined ) && (this.x != undefined) && (player.x != undefined )&& (this.y == player.y) && Math.abs(this.x - player.x) < 50) {
         console.log(this.x + ', ' + player.x);
         console.log('bang');
         player.x = 199;
