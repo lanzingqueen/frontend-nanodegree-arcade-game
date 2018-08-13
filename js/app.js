@@ -15,36 +15,41 @@ var Enemy = function() {
     this.speed = this.randomSpeed();
     // The image/sprite for enemies
     this.sprite = 'images/enemy-bug.png';
-};
-//Enemy random speed function
-Enemy.prototype.randomSpeed = function() {
-    var rand = (Math.floor(Math.random() * Math.floor(3)));
-    const speed = {
-        0: 150,
-        1: 350,
-        2: 500
+    //Enemy random speed function
+    Enemy.prototype.randomSpeed = function() {
+        var rand = (Math.floor(Math.random() * Math.floor(3)));
+        const speed = {
+            0: 150,
+            1: 350,
+            2: 500
+        };
+        return speed[rand];
     };
-    return speed[rand];
-};
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
-Enemy.prototype.update = function(dt) {
-    //if (sqrt((this.x-player.x)^2 + (this.y-player.y)^2)) {
-    if ((this.y != undefined) && (player.y != undefined ) && (this.x != undefined) && (player.x != undefined )&& (this.y == player.y) && Math.abs(this.x - player.x) < 50) {
+    // Update the enemy's position, required method for game
+    // Parameter: dt, a time delta between ticks
+    Enemy.prototype.update = function(dt) {
+        //if (sqrt((this.x-player.x)^2 + (this.y-player.y)^2)) {
+        if ((this.y != undefined)
+        && (player.y != undefined) 
+        && (this.x != undefined) 
+        && (player.x != undefined)
+        && (this.y == player.y) 
+        && Math.abs(this.x - player.x) < 50) {
         console.log(this.x + ', ' + player.x);
         console.log('bang');
         player.x = 199;
         player.y = 403;
         return;
     };
-    // You should multiply any movement by the dt parameter
-    // which will ensure the game runs at the same speed for
-    // all computers.
-    this.x+=(dt*this.speed);
-};
-// Draw the enemy on the screen, required method for game
-Enemy.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        // You should multiply any movement by the dt parameter
+        // which will ensure the game runs at the same speed for
+        // all computers.
+        this.x+=(dt*this.speed);
+    };
+    // Draw the enemy on the screen, required method for game
+    Enemy.prototype.render = function() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    };
 };
 // Now write your own player class
 // This class requires an update(), render() and
@@ -85,17 +90,18 @@ function Player() {
     this.update = function() {
         //console.log('Player.update error fixing');
     }
-}
-//Render
-Player.prototype.render = function() {
-    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-    //console.log('Render, dammit!');
+    //Render
+    Player.prototype.render = function() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+        //console.log('Render, dammit!');
+    };
 };
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
-var allEnemies = [(new Enemy()),new Enemy()];
-var player = new Player();
+let allEnemies = [(new Enemy()),new Enemy()];
+let player = new Player();
 //Makes bugs keep coming
 this.buggyRecursion = function(){
     this.newEnemySpawns = new Promise(function () {
@@ -121,10 +127,10 @@ document.addEventListener('keyup', function(e) {
 });
 
 // Get the modal
-var modal = document.getElementById('myModal');
+let modal = document.getElementById('myModal');
 
 //Game Won modal
-var span = document.getElementsByClassName("close")[0];
+let span = document.getElementsByClassName("close")[0];
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -142,7 +148,7 @@ replay.onclick = function(event) {
     reset();
 }
 
-var reset = function() {
+let reset = function() {
     player.x = 199;
     player.y = 403;
 }
